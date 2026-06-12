@@ -1,11 +1,24 @@
-<h1><%= @place.name %></h1>
+<div class="row">
+  <div class="col-md-8">
+    <h1 class="mb-4"><%= @place.name %></h1>
+    
+    <%= link_to "Back to all places", places_path, class: "btn btn-outline-secondary mb-3" %>
 
-<%= link_to "Back to all places", places_path %>
+    <div class="entries">
+      <% @place.entries.where(user_id: current_user.id).each do |entry| %>
+        <div class="card mb-3">
+          <% if entry.image.attached? %>
+            <img src="<%= url_for(entry.image) %>" class="card-img-top" alt="Entry image">
+          <% end %>
+          <div class="card-body">
+            <h5 class="card-title"><%= entry.title %></h5>
+            <p class="card-text text-muted"><%= entry.occurred_on %></p>
+            <p class="card-text"><%= entry.description %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
 
-<% @place.entries.where(user_id: current_user.id).each do |entry| %>
-  <h3><%= entry.title %></h3>
-  <p><%= entry.occurred_on %></p>
-  <p><%= entry.description %></p>
-<% end %>
-
-<%= link_to "New Entry", new_place_entry_path(@place) %>
+    <%= link_to "New Entry", new_place_entry_path(@place), class: "btn btn-success mt-3" %>
+  </div>
+</div>
