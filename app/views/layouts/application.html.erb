@@ -15,7 +15,7 @@
     </div>
     <div>
       <a href="/">Home</a>
-      <a href="/logout">Logout</a>
+      <%= button_to "Logout", logout_path, method: :delete %>
       <a href="/login">Login</a>
       <a href="/signup">Signup</a>
     </div>
